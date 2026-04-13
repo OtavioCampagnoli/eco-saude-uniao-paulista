@@ -1,0 +1,22 @@
+# Qualidade, Estilo e Tooling
+
+## Formatação e lint
+- Black para formatar.
+- Ruff sem warnings.
+
+## Typing
+- Usar typing moderno (3.12), preferir `list[str]`, `dict[str, int]`.
+- `from __future__ import annotations`.
+
+## Logging
+- Evitar `print()` no código final.
+- Se necessário, usar `logging`.
+
+## Tamanho e clareza
+- Funções pequenas e com responsabilidade única.
+- Evitar funções > ~50 linhas sem necessidade.
+
+## requirements.txt
+- Fixar versões (reprodutibilidade).
+- Separar dependências de produção e dev se desejar:
+  - (opcional) `requirements-dev.txt`

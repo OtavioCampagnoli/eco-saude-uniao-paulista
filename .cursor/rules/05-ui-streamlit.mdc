@@ -1,0 +1,34 @@
+# Regras da Camada UI (Streamlit)
+
+## Linguagem
+- Textos para o usuário: pt-BR
+- Código (funções/variáveis/classes): inglês
+
+## main.py
+- `app/main.py` deve:
+  - configurar página (title, layout)
+  - compor dependências (repo, service)
+  - roteamento simples (sidebar / tabs)
+- Proibido: regras de score/recomendação dentro do main.py
+
+## Componentes
+- Reutilizar UI em `app/ui/components.py`:
+  - seletor de setor
+  - editor de itens do checklist
+  - cards de métricas
+- Páginas em `app/ui/pages.py`:
+  - `render_new_inspection(service)`
+  - `render_dashboard(service)`
+  - `render_export(service)`
+
+## Estado
+- `st.session_state` apenas para:
+  - filtros (setor, data)
+  - navegação (aba atual)
+- Não armazenar “banco” no session_state.
+
+## Cache
+- `st.cache_data` permitido para:
+  - carregar inspeções (se leitura ficar pesada)
+  - computar métricas agregadas
+- Não cachear escrita.

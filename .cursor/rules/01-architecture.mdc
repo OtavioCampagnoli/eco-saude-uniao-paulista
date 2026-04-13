@@ -1,0 +1,28 @@
+# Regras de Arquitetura e Camadas
+
+## Estrutura obrigatória
+- `app/main.py`: entrypoint Streamlit (composição + navegação)
+- `app/ui/`: somente UI (layout, inputs, componentes)
+- `app/domain/`: regras de negócio puras (sem I/O)
+- `app/services/`: casos de uso (orquestra domain + infra)
+- `app/infra/`: persistência e integrações locais (CSV/SQLite)
+- `data/`: arquivos gerados (ex.: inspections.csv)
+- `tests/`: testes unitários (foco em domain)
+
+## Dependências permitidas (matriz)
+- UI -> pode importar Services e Domain; NÃO pode importar Infra diretamente.
+- Services -> pode importar Domain e Infra.
+- Domain -> NÃO pode importar Streamlit, pandas, plotly ou qualquer I/O.
+- Infra -> NÃO pode conter regra de negócio; apenas ler/escrever e adaptar formatos.
+
+## SOLID (aplicação prática)
+- SRP: regras de score em `domain/scoring.py`; recomendações em `domain/recommendations.py`
+- OCP: permitir trocar storage (CSV -> SQLite) sem mudar services/domain
+- DIP: services dependem de interface/protocolo de repositório (não de CSV direto)
+- ISP/LSP: contratos pequenos e substituíveis (Protocol com métodos mínimos)
+
+## Injeção de dependência
+- Criar instâncias no `main.py`:
+  - `repo = CsvInspectionRepository(path="data/inspections.csv")`
+  - `service = InspectionService(repo)`
+- Evitar singletons globais; usar `st.cache_data` apenas para leitura/derivações quando fizer sentido.

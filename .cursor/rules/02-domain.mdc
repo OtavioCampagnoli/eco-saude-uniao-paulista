@@ -1,0 +1,51 @@
+# Regras da Camada Domain (Negócio)
+
+## Proibição
+- Domain NÃO pode importar:
+  - streamlit
+  - pandas
+  - plotly
+  - módulos de I/O (pathlib open, requests etc. — exceto typing/stdlib se não for I/O)
+- Domain deve ser 100% testável com pytest sem interface gráfica.
+
+## Modelos (Pydantic v2)
+- Usar `pydantic.BaseModel` para entidades e validação.
+- Usar enums para status.
+
+### Entidades obrigatórias
+- `Inspection`
+  - id: UUID
+  - created_at: datetime (timezone-aware)
+  - school_name: str (default "União Paulista")
+  - sector: str
+  - items: list[InspectionItem]
+  - notes: str | None
+- `InspectionItem`
+  - name: str
+  - status: ItemStatus (OK, ATTENTION, CRITICAL)
+  - comment: str | None
+
+## Score (regras determinísticas)
+- Penalidades base:
+  - OK: 0
+  - ATTENTION: -10
+  - CRITICAL: -25
+- Score final por inspeção e por setor: 0–100
+- Funções puras:
+  - `score_inspection(inspection: Inspection) -> int`
+  - `score_by_sector(inspections: list[Inspection]) -> dict[str, int]`
+
+## Recomendações (regras explícitas e testáveis)
+- `generate_recommendations(inspection: Inspection) -> list[str]`
+- Exemplos de regras:
+  - se existir CRITICAL e item contém "vazamento" => manutenção imediata
+  - se item contém "sem sabonete" => reposição + orientação higiene
+  - se item contém "bebedouro sujo" => limpeza + rotina
+
+## Métricas do dashboard (domínio)
+- `aggregate_dashboard_metrics(inspections: list[Inspection]) -> DashboardMetrics`
+- Deve incluir:
+  - total_inspections
+  - issues_by_status
+  - score_by_sector
+  - top_problem_items

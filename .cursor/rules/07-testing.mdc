@@ -1,0 +1,17 @@
+# Testes (pytest)
+
+## Obrigatório testar (domain)
+- score:
+  - casos com todos OK
+  - mistura ATTENTION/CRITICAL
+  - score mínimo 0
+- recomendações:
+  - vazamento crítico gera recomendação
+  - sem sabonete gera recomendação
+- agregação:
+  - issues_by_status correto
+  - score_by_sector correto
+
+## Diretrizes
+- Testes offline, sem Streamlit.
+- Evitar mocks pesados; usar objetos Pydantic reais.

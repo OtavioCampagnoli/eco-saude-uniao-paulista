@@ -1,0 +1,18 @@
+# XP (Extreme Programming) — Workflow
+
+## Iterações curtas (ordem recomendada)
+1) CRUD mínimo (criar e listar inspeções) + persistência CSV
+2) Score + dashboard
+3) Recomendações + exportação + polimento + testes
+
+## Red-Green-Refactor
+- Escrever teste para regra (vermelho)
+- Implementar (verde)
+- Refatorar (manter verde)
+
+## Commits (Conventional Commits)
+- feat: ...
+- fix: ...
+- refactor: ...
+- test: ...
+- docs: ...

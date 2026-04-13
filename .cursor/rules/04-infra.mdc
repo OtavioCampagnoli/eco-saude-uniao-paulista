@@ -1,0 +1,18 @@
+# Regras da Camada Infra (Persistência)
+
+## Repository pattern
+- Definir contrato em `app/infra/repository.py` usando `typing.Protocol`:
+  - `add(inspection: Inspection) -> None`
+  - `list() -> list[Inspection]`
+- Implementação inicial: CSV em `app/infra/storage_csv.py`
+
+## CSV (MVP)
+- Arquivo padrão: `data/inspections.csv`
+- O app deve criar pasta/arquivo se não existir.
+- Escrita deve ser segura (preferência):
+  - escrever em temporário e substituir (quando simples), OU
+  - append controlado + cabeçalho garantido
+
+## Regras
+- Infra não decide score nem recomendação.
+- Infra só converte `Inspection <-> linhas CSV` (ou JSON serializado em coluna).

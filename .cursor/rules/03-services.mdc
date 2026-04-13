@@ -1,0 +1,15 @@
+# Regras da Camada Services (Casos de Uso)
+
+## Papel
+Services orquestram domínio + repositório, sem UI.
+
+## Regras
+- Não usar Streamlit em services.
+- Não formatar gráficos em services (isso é UI).
+- Validar entradas e retornar dados prontos para UI renderizar.
+
+## Casos de uso mínimos
+- `create_inspection(inspection: Inspection) -> None`
+- `list_inspections() -> list[Inspection]`
+- `get_dashboard() -> DashboardMetrics`
+- `export_csv(target_path: str) -> None` (opcional no MVP)

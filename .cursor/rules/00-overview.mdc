@@ -1,0 +1,21 @@
+# EcoSaúde UP — Cursor Rules (Overview)
+
+## Objetivo
+Construir um app Streamlit (pt-BR) para checklist e dashboard de Meio Ambiente & Saúde (ODS 6/ODS 3),
+com arquitetura limpa e pronta para rodar localmente no notebook.
+
+## Stack alvo
+- Python 3.12.x
+- Streamlit (UI)
+- pandas (dados)
+- plotly (gráficos)
+- pydantic v2 (modelos/validação)
+- pytest (testes)
+- ruff + black (qualidade)
+
+## Entregáveis mínimos
+- requirements.txt (versões fixas)
+- README.md (direto)
+- App rodando via `streamlit run app/main.py`
+- Testes unitários para regras do domínio
+- Footer/Autoria: "Projeto desenvolvido por Otávio Campagnoli."
